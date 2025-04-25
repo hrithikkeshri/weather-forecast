@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather Forecast App</title>
+  <link rel="stylesheet" href="weather.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar / Topbar Controls -->
+    <aside class="controls-panel">
+      <h1>🌤️ Weather Now</h1>
+      <input type="text" id="cityInput" placeholder="Enter city name..." />
+      <button onclick="getWeatherByCity()">🔍 Search</button>
+      <button onclick="getWeatherByLocation()">📍 Current Location</button>
+      <select id="recentCities" onchange="selectRecentCity()">
+        <option value="">Recent Searches</option>
+      </select>
+    </aside>
+
+    <!-- Main Weather Section -->
+    <main class="weather-main">
+      <div id="weatherDisplay" class="current-weather"></div>
+      
+      <!-- 5 Days Forecast Heading -->
+      <h2 class="forecast-heading">5 Days Forecast</h2>
+      
+      <!-- Forecast Strip -->
+      <div id="forecast" class="forecast-strip"></div>
+    </main>
+  </div>
+
+  <script src="weather.js"></script>
+</body>
+</html>

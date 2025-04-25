@@ -1,0 +1,196 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f1f5f9;
+  color: #374151;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Left Sidebar / Topbar Controls */
+.controls-panel {
+  background: #f9fafb;
+  color: #374151;
+  padding: 30px 20px;
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-right: 1px solid #e5e7eb;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.03);
+}
+
+.controls-panel h1 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.controls-panel input,
+.controls-panel button,
+.controls-panel select {
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+.controls-panel input {
+  background: #ffffff;
+  color: #374151;
+}
+
+.controls-panel button {
+  background: #3b82f6;
+  color: white;
+  cursor: pointer;
+}
+
+.controls-panel button:hover {
+  background: #2563eb;
+}
+
+.controls-panel select {
+  background: #ffffff;
+  color: #374151;
+}
+
+/* Right Main Dark Theme Area */
+.weather-main {
+  flex: 1;
+  padding: 30px;
+  background: #111827;
+  color: #f3f4f6;
+  overflow-y: auto;
+}
+
+/* Current Weather Card */
+.current-weather {
+  max-width: 500px;
+  background: #1f2937;
+  border-radius: 14px;
+  padding: 30px;
+  margin: 0 auto 40px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.current-weather h2 {
+  font-size: 2rem;
+  margin-bottom: 14px;
+  color: #facc15;
+}
+
+.current-weather p {
+  font-size: 1.05rem;
+  margin: 6px 0;
+}
+
+/* Forecast Row */
+.forecast-strip {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #374151 transparent;
+  flex-wrap: nowrap; /* Ensure no wrapping */
+  width: 100%; /* Ensure it takes full width of its parent container */
+  justify-content: flex-start; /* Align the items horizontally */
+}
+.forecast-grid{
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #374151 transparent;
+  flex-wrap: nowrap; /* Ensure no wrapping */
+  width: 100%; /* Ensure it takes full width of its parent container */
+  justify-content: flex-start; /* Align the items horizontally */
+}
+
+.forecast-strip::-webkit-scrollbar {
+  height: 8px;
+}
+
+.forecast-strip::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 4px;
+}
+
+.forecast-card {
+  min-width: 140px;
+  flex: 0 0 auto;
+  background: #1f2937;
+  border: 1px solid #374151;
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+
+.forecast-card:hover {
+  transform: translateY(-3px);
+}
+
+.forecast-card h4 {
+  font-size: 0.95rem;
+  color: #facc15;
+  margin-bottom: 8px;
+}
+
+.forecast-card img {
+  width: 55px;
+  margin: 8px 0;
+}
+
+.forecast-card p {
+  font-size: 0.9rem;
+  margin: 4px 0;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .controls-panel {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 10px;
+    padding: 16px;
+    align-items: center;
+    border-right: none;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .controls-panel h1 {
+    flex-basis: 100%;
+    text-align: center;
+  }
+
+  .weather-main {
+    padding: 20px;
+  }
+
+  .forecast-strip {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+  }
+}

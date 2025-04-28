@@ -1,17 +1,25 @@
+// OpenWeatherMap API key
 const API_KEY = '699f99f53a64d6ae9a2b692c9da9f921';
 
+/**
+ * Fetches weather data based on the user's current location using the Geolocation API.
+ */
 function getWeatherByLocation() {
-  navigator.geolocation.getCurrentPosition(pos => {
-    const lat = pos.coords.latitude;
-    const lon = pos.coords.longitude;
-    fetchWeather(lat, lon);
-    
-    
-  }, () => {
-    alert("Location access denied.");
-  });
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+      fetchWeather(lat, lon);
+    },
+    () => {
+      alert("Location access denied.");
+    }
+  );
 }
 
+/**
+ * Fetches weather data for the city entered in the input field.
+ */
 function getWeatherByCity() {
   const city = document.getElementById("cityInput").value.trim();
   if (!city) return alert("Enter a valid city name");
@@ -20,8 +28,6 @@ function getWeatherByCity() {
     .then(res => {
       if (!res.ok) throw new Error("City not found");
       return res.json();
-     
-      
     })
     .then(data => {
       const { lat, lon } = data.coord;
@@ -31,13 +37,21 @@ function getWeatherByCity() {
     .catch(() => alert("City not found!"));
 }
 
+/**
+ * Fetches both current weather and 5-day forecast data based on provided latitude and longitude.
+ * @param {number} lat - Latitude
+ * @param {number} lon - Longitude
+ * @param {string} cityName - Optional city name for display
+ */
 function fetchWeather(lat, lon, cityName = '') {
+  // Current Weather
   fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
     .then(res => res.json())
     .then(data => {
       displayCurrentWeather(data, cityName || data.name);
     });
 
+  // 5-day Forecast
   fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
     .then(res => res.json())
     .then(data => {
@@ -45,6 +59,11 @@ function fetchWeather(lat, lon, cityName = '') {
     });
 }
 
+/**
+ * Renders the current weather details in the UI.
+ * @param {object} data - Weather API response
+ * @param {string} city - City name
+ */
 function displayCurrentWeather(data, city) {
   const html = `
     <div class="weather-card">
@@ -58,6 +77,10 @@ function displayCurrentWeather(data, city) {
   document.getElementById("weatherDisplay").innerHTML = html;
 }
 
+/**
+ * Renders a 5-day forecast with one card per day.
+ * @param {Array} list - Forecast API response list
+ */
 function displayForecast(list) {
   let days = {};
   list.forEach(item => {
@@ -80,6 +103,10 @@ function displayForecast(list) {
   document.getElementById("forecast").innerHTML = `<div class="forecast-grid">${cards}</div>`;
 }
 
+/**
+ * Adds a city to the recent search history in localStorage.
+ * @param {string} city - City name
+ */
 function addRecentCity(city) {
   let cities = JSON.parse(localStorage.getItem("recentCities")) || [];
   if (!cities.includes(city)) {
@@ -90,6 +117,9 @@ function addRecentCity(city) {
   }
 }
 
+/**
+ * Loads recent city search history from localStorage into the dropdown.
+ */
 function loadRecentCities() {
   const select = document.getElementById("recentCities");
   const cities = JSON.parse(localStorage.getItem("recentCities")) || [];
@@ -102,6 +132,9 @@ function loadRecentCities() {
   });
 }
 
+/**
+ * Handles selection of a recent city from the dropdown.
+ */
 function selectRecentCity() {
   const city = document.getElementById("recentCities").value;
   if (city) {
